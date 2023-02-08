@@ -22,10 +22,14 @@ class Auth:
         else:
             return True
 
-    def authorization_header(self, request=request) -> str:
-        """auth header"""
-        return None
+    def authorization_header(self, request=None) -> str:
+        """ authorization header """
+        if request is None:
+            return None
+        if not request.headers.get("Authorization"):
+            return None
+        return request.headers.get("Authorization")
 
-    def current_user(self, request=request) -> TypeVar('User'):
-        """current user function/middleware"""
+    def current_user(self, request=None) -> TypeVar('User'):
+        """ current user """
         return None
