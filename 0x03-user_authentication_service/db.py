@@ -32,7 +32,7 @@ class DB:
             DBSession = sessionmaker(bind=self._engine)
             self.__session = DBSession()
         return self.__session
-    
+
     def add_user(self, email: str, hashed_password: str) -> User:
         """add new user"""
         user = User(email=email, hashed_password=hashed_password)
@@ -40,7 +40,7 @@ class DB:
         self._session.commit()
         return user
 
-    def find_user_by(self, **Kwargs)-> User:
+    def find_user_by(self, **Kwargs) -> User:
         """find a user by the argument provided"""
         if not Kwargs:
             raise NoResultFound
