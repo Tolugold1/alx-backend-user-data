@@ -34,28 +34,26 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        """add new user"""
+        """ save the user to the database and returns a User object """
         user = User(email=email, hashed_password=hashed_password)
         self._session.add(user)
         self._session.commit()
         return user
 
-    def find_user_by(self, **Kwargs) -> User:
-        """find a user by the argument provided"""
-        if Kwargs is None:
+    def find_user_by(self, **kwargs) -> User:
+        """ find a user by the argument provided """
+        if kwargs is None:
             raise InvalidRequestError
-        user_obj = self._session.query(User).filter_by(**Kwargs).first()
-        if user_obj is None:
+        user = self._session.query(User).filter_by(**kwargs).first()
+        if user is None:
             raise NoResultFound
-        return user_obj
+        return user
 
     def update_user(self, user_id: int, **kwargs) -> None:
-    """ locate the user to update, then will update the user’s attributes
-        as passed in the method’s arguments then commit changes to the
-        database """
-    _id = self.find_user_by(id=user_id)
-    for key, value in kwargs.items():
-        if not hasattr(_id, key):
-            raise ValueError
-        setattr(_id, key, value)
-    self._session.commit()
+        """ update a user """
+        _id = self.find_user_by(id=user_id)
+        for key, value in kwargs.items():
+            if not hasattr(_id, key):
+                raise ValueError
+            setattr(_id, key, value)
+        self._session.commit()
