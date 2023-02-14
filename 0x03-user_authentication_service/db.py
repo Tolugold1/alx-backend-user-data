@@ -47,5 +47,4 @@ class DB:
         user_obj = self._session.query(User).filter_by(**Kwargs).first()
         if user_obj is None:
             raise NoResultFound
-        else:
-            return user_obj
+        return user_obj
