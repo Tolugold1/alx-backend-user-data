@@ -19,10 +19,10 @@ def users(email, password):
     pwd = request.form.get("password")
     try:
         AUTH.register_user(email, pwd)
-        return jsonify({"email": "{email}",
-        "message": "user created"})
+        return jsonify({"email": email,
+        "message": "user created"}), 200
     except Exception:
-        return jsonify({"message": "email already registered"})
+        return jsonify({"message": "email already registered"}), 400
 
 
 if __name__ == "__main__":
