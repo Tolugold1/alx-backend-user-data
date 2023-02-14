@@ -3,10 +3,10 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
 
-base = declarative_base()
+Base = declarative_base()
 
 
-class User(base):
+class User(Base):
     """User class model"""
     __tablename__ = "users"
 
