@@ -4,13 +4,14 @@ from flask import Flask, jsonify, request, abort, redirect
 from sqlalchemy.orm.exc import NoResultFound
 from auth import Auth
 app = Flask(__name__)
-
-
 AUTH = Auth()
+
+
 @app.route("/", methods=["GET"], strict_slashes=False)
 def welcome_message():
     """return a json message"""
     return jsonify({"message": "Bienvenue"})
+
 
 @app.route("/users", methods=["POST"], strict_slashes=False)
 def users():
