@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 """flask app"""
 from flask import Flask, jsonify
-
-
 app = Flask(__name__)
 
 
-@app.route("/", methods=["GET"], strict_slashed=False)
+@app.route("/", methods=["GET"], strict_slashes=False)
 def welcome_message():
     """return a json message"""
     return jsonify({"message": "Bienvenue"})
