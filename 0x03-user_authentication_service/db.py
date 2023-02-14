@@ -36,15 +36,15 @@ class DB:
     def add_user(self, email: str, hashed_password: str) -> User:
         """add new user"""
         user = User(email=email, hashed_password=hashed_password)
-        self.__session.add(user)
-        self.__session.commit()
+        self._session.add(user)
+        self._session.commit()
         return user
 
     def find_user_by(self, **Kwargs)-> User:
         """find a user by the argument provided"""
         if not Kwargs:
             raise NoResultFound
-        user_obj = self.__session.query(User).filter_by(Kwargs).first
+        user_obj = self._session.query(User).filter_by(Kwargs).first
         if user_obj is None:
             raise InvalidRequestError
         else:
