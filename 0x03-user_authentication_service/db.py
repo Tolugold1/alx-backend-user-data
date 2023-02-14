@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
-
+from typing import TypeVar
 from user import Base, User
 
 
@@ -32,7 +32,7 @@ class DB:
             DBSession = sessionmaker(bind=self._engine)
             self.__session = DBSession()
         return self.__session
-    
+
     def add_user(self, email: str, hashed_password: str) -> User:
         """add new user"""
         user = User(email=email, hashed_password=hashed_password)
@@ -40,12 +40,12 @@ class DB:
         self._session.commit()
         return user
 
-    def find_user_by(self, **Kwargs)-> User:
+    def find_user_by(self, **Kwargs) -> User:
         """find a user by the argument provided"""
-        if not Kwargs:
-            raise NoResultFound
-        user_obj = self._session.query(User).filter_by(Kwargs).first
-        if user_obj is None:
+        if kwargs is None:
             raise InvalidRequestError
+        user_obj = self._session.query(User).filter_by(**Kwargs).first()
+        if user_obj is None:
+            raise NoResultFound
         else:
             return user_obj
