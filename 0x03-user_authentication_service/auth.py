@@ -28,4 +28,5 @@ class Auth:
             hashed_pwd = _hash_password(password)
             usr = self._db.add_user(email, hashed_pwd)
             return usr
-        raise ValueError(f"User {email} already exists")
+        else:
+            raise ValueError("User {email} already exists")
